@@ -1,16 +1,32 @@
-for name in "John", "Sam", "Jill":
-	print("Hello " + name)
-	
-total=0
-for i in 5,7,11,13:
-	print(i)
-	total=total+i
-print(total)
+def main():
+    x = 0
 
-for _ in range(10):
-	print("Hello") 
-	
-list_of_beverages = ["Water", "Iced Tea", "Coca Cola"]
+    # define a while loop
+    while(x<5):
+        print(x)
+        x = x+1
 
-for drink in list_of_beverages:
-	print("Would you like a " + drink + "?")
+    # define a for loop
+    for x in range(5,10):
+        print(x)
+
+    # use a for loop over a collection
+    days = ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    for d in days:
+        print(d)
+
+    # use break and continue statements
+    for x in range(5, 10):
+        if(x==7): break
+        if(x%2 == 0): continue
+        print(x)
+
+    # using the enumerate() function to get index
+    days = ["Mon", "Tue", "Wed", "Thu", "Fri"]
+    for i, d in enumerate(days):
+        print(i, d)
+    
+
+
+if __name__ == "__main__":
+    main()
