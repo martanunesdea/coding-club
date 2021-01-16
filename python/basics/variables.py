@@ -1,33 +1,26 @@
 
-# type is a builtin function with returns the type of a value
-x = 3 # class int
-x = 7.0 # class float
-x = True # class bool
-x = '7.0' # class string
+# Variables store values
+# Variables have certain types depending on the value stored
+"""
+my_new_variable = 4
+y = 3 # int
+x = 7.0 # float
+x = True # bool
+x = 'Word' # string
 
-# string - second example
-phrase = "hello world"
-print(phrase)
+# printing a string
+election_outcome = "winner"
+print(election_outcome)
 # different method
-print("hi, it's me")
-
-# boolean
-x = False
-print(x)
+print("Hi there")
+"""
+# using a boolean
+x = True
+print(x)    # not very useful 
 if x:
     print("it's true")
+else:
+    print("it's false")
 
-
-# getting user input
-name = input("Give me your name: ") # always returns a string
-print("Your name is " + name)
-
-
-
-print("I will now count my chickens: ")
-print("Hens", 25+30/6)
-print("Roosters", 100-25 + 3%4)
-print("is it true that 3+2 < 5-7?")
-print(3+2<5-7)
-print("What i 3 +2", 3+2)
-print("is it greater?", 5>-2)
+# type is a builtin function with returns the type of a value
+# print(type(x))
