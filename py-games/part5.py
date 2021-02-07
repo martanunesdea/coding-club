@@ -1,4 +1,3 @@
-# With Text and Keeping Score
 import pygame, sys
 from pygame.locals import *
 import random, time # now also importing time for timer functions
@@ -80,17 +79,31 @@ enemies.add(E1)
 all_sprites = pygame.sprite.Group()
 all_sprites.add(P1)
 all_sprites.add(E1)
+ 
+# Create new User event 
+INC_SPEED = pygame.USEREVENT + 1
+pygame.time.set_timer(INC_SPEED, 1000)
 
+MORE_ENEMIES = pygame.USEREVENT + 2
+pygame.time.set_timer(MORE_ENEMIES, 5000)
+
+ 
 ### GAME LOOP ###############
 while True:     
-    for event in pygame.event.get():  
+    for event in pygame.event.get():
+        if event.type == INC_SPEED:
+            SPEED += 0.1   
+        if event.type == MORE_ENEMIES:
+            new_enemy = Enemy()
+            enemies.add(new_enemy)
+            all_sprites.add(new_enemy)
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
  
     # Refresh screen and score
     DISPLAYSURF.blit(background, (0,0))
-    scores = font_small.render(str(SCORE), True, WHITE)
+    scores = font_small.render(str(SCORE), True, BLACK)
     DISPLAYSURF.blit(scores, (10,10))
  
     # Update spite groups
@@ -100,9 +113,10 @@ while True:
  
     # Detect collision
     if pygame.sprite.spritecollideany(P1, enemies):
+          # pygame.mixer.Sound('crash.wav').play()
           time.sleep(0.5)
                     
-          DISPLAYSURF.fill(RED)
+          DISPLAYSURF.fill(BLACK)
           DISPLAYSURF.blit(game_over, (30,250))
            
           pygame.display.update()

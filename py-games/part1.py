@@ -1,40 +1,75 @@
 import pygame, sys
 from pygame.locals import *
-
-# Initialize program
+import random
+ 
 pygame.init()
  
-# Assign FPS a value
-FPS = 30
+FPS = 60
 FramePerSec = pygame.time.Clock()
- 
-# Setting up color objects
-BLUE  = (0, 0, 255)
+
 RED   = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
- 
-# Setup a 300x300 pixel display with caption
-DISPLAYSURF = pygame.display.set_mode((300,300))
+SCREEN_WIDTH = 400
+SCREEN_HEIGHT = 600
+GAME_NAME = "Dodge The Enemy"
+
+DISPLAYSURF = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
 DISPLAYSURF.fill(WHITE)
-pygame.display.set_caption("Example")
+pygame.display.set_caption(GAME_NAME)
  
-# Creating Lines and Shapes
-pygame.draw.line(DISPLAYSURF, BLUE, (150,130), (130,170))
-pygame.draw.line(DISPLAYSURF, BLUE, (150,130), (170,170))
-pygame.draw.line(DISPLAYSURF, GREEN, (130,170), (170,170))
-pygame.draw.circle(DISPLAYSURF, BLACK, (100,50), 30)
-pygame.draw.circle(DISPLAYSURF, BLACK, (200,50), 30)
-pygame.draw.rect(DISPLAYSURF, RED, (100, 200, 100, 50), 2)
-pygame.draw.rect(DISPLAYSURF, BLACK, (110, 260, 80, 5))
+class Enemy(pygame.sprite.Sprite):
+      def __init__(self):
+        super().__init__() 
+        self.image = pygame.image.load("alien.png")
+        self.surf = pygame.Surface((56, 50))
+        self.rect = self.surf.get_rect(center = (random.randint(40, 360),0))     
  
-# Beginning Game Loop
-while True:
-    pygame.display.update()
-    for event in pygame.event.get():
+      def move(self):
+        self.rect.move_ip(0,5)
+        if (self.rect.bottom > 600):
+            self.rect.top = 0
+            self.rect.center = (random.randint(30, 370), 0)
+ 
+      def draw(self, surface):
+        surface.blit(self.image, self.rect) 
+ 
+ 
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__() 
+        self.image = pygame.image.load("rocket.png")
+        self.surf = pygame.Surface((100, 100))
+        self.rect = self.surf.get_rect(center = (200, 500))      
+ 
+    def update(self):
+        pressed_keys = pygame.key.get_pressed()
+        if self.rect.left > 0:
+            if pressed_keys[K_LEFT]:
+                self.rect.move_ip(-5, 0)
+        if self.rect.right < SCREEN_WIDTH:        
+            if pressed_keys[K_RIGHT]:
+                self.rect.move_ip(5, 0)
+ 
+    def draw(self, surface):
+        surface.blit(self.image, self.rect)
+         
+P1 = Player()
+E1 = Enemy()
+ 
+while True:     
+    for event in pygame.event.get():              
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
-   
+
+    # get physical updates
+    P1.update()
+    E1.move()
+     
+    # update graphics
+    DISPLAYSURF.fill(WHITE)
+    P1.draw(DISPLAYSURF)
+    E1.draw(DISPLAYSURF)
+    
+    pygame.display.update()
     FramePerSec.tick(FPS)

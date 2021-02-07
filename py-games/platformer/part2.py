@@ -41,8 +41,14 @@ class Player(pygame.sprite.Sprite):
             self.pos.x = 0
         if self.pos.x < 0:
             self.pos.x = WIDTH
-            
-        self.rect.midbottom = self.pos           
+        self.rect.midbottom = self.pos
+    def update(self):
+        hits = pygame.sprite.spritecollide(P1 , platforms, False)
+        if hits:
+            self.pos.y = hits[0].rect.top + 1
+            self.vel.y = 0           
+    def jump(self):
+        self.vel.y = -15
  
 class platform(pygame.sprite.Sprite):
     def __init__(self):
@@ -57,18 +63,24 @@ P1 = Player()
 all_sprites = pygame.sprite.Group()
 all_sprites.add(PT1)
 all_sprites.add(P1)
+platforms = pygame.sprite.Group()
+platforms.add(PT1)
  
 while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
+        if event.type == pygame.KEYDOWN:    
+            if event.key == pygame.K_SPACE:
+                P1.jump()
      
     displaysurface.fill((0,0,0))
  
     P1.move()
     for entity in all_sprites:
         displaysurface.blit(entity.surf, entity.rect)
+        entity.update()
  
     pygame.display.update()
     FramePerSec.tick(FPS)
