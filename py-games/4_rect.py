@@ -15,16 +15,16 @@ print("Rect 1 center in X-dimension: ", rect1.centerx)
 print("Rect 1 center in Y-dimension: ", rect1.centery)
 
 
-""" Rect.move and Rect.move_ip 
+#Rect.move and Rect.move_ip 
 # Rect move will create a new rect, in a different place
 rect2 = rect1.move(100, 100)
 print("Position of moved rect1: ", rect2.topleft)
 print("Position of rect1: ", rect1.topleft)
 print("\n\n")
 # Rect move_ip will replace the previous coordinates
-rect1.move_ip(100, 100)
-print("Position of rect1: rect1.topleft)
-"""
+rect1.move_ip(0, 5)
+print("Position of rect1:", rect1.topleft)
+
 
 """  Experiment to convince further: move_ip doesn't return anything..
 rect3 = rect1.move_ip(100, 100)
@@ -34,14 +34,12 @@ print("Position of rect1: ", rect1.topleft)
 
 
 
-""" Collision
+# Collision
 rect3 = pygame.Rect((10, 10), (100, 100))
 rect4 = pygame.Rect((0, 0), (50, 50))
- 
 if rect1.colliderect(rect3):
     print("rect 1 and rect 3 clash")
 if rect1.colliderect(rect4):
     print("rect 1 and rect 4 clash")
 if rect3.colliderect(rect4):
     print("rect 3 and rect 4 clash")
-"""

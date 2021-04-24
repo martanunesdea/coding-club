@@ -22,7 +22,9 @@ while True:
             pygame.quit()
             sys.exit()
  
-    main_surface.blit(surface_small, (coord_x,coord_y))
+    main_surface.blit(surface_small, (75,75))
     main_surface.blit(surface_large, (coord_x,coord_y+OFFSET))
+ 
+
  
     pygame.display.update()
