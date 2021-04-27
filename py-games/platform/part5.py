@@ -41,10 +41,11 @@ class Player(pygame.sprite.Sprite):
  
     def update(self):
         hits = pygame.sprite.spritecollide(P1 ,platforms, False)
-        condition = (self.pos.y > hits[0].rect.y + 5) 
-        if hits and condition:
-            self.pos.y = hits[0].rect.top + 1
-            self.vel.y = 0
+        #condition = (self.pos.y > hits[0].rect.y + 5) 
+        if hits:
+            if P1.vel.y > 0:
+                self.pos.y = hits[0].rect.y + 1
+                self.vel.y = 0
 
     def jump(self):
         # only jump if sprite was touching the platform to begin
@@ -86,6 +87,7 @@ vec = pygame.math.Vector2 #2 for two dimensional
 # SPRITES
 PT1 = platform()
 PT1.surf = pygame.Surface((WIDTH, 20))
+PT1.surf.fill(RED)
 PT1.rect = PT1.surf.get_rect(center = (WIDTH/2, HEIGHT - 10))
 
 P1 = Player()

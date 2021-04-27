@@ -1,4 +1,4 @@
-# using grid
+# using .grid() method
 import tkinter as tk
 
 window = tk.Tk()

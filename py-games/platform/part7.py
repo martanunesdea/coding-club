@@ -55,7 +55,7 @@ class Player(pygame.sprite.Sprite):
             if self.vel.y < -3:
                 self.vel.y = -3
  
-    def update(self, bythismuch):
+    def update(self, bythismuch=1):
         hits = pygame.sprite.spritecollide(self ,platforms, False)
         if hits:
             # this can be tweaked for better graphics
@@ -90,7 +90,6 @@ def plat_gen():
         
 PT1 = platform()
 P1 = Player()
-P1.update(3)
 PT1.surf = pygame.Surface((WIDTH, 20))
 PT1.surf.fill((255,0,0))
 PT1.rect = PT1.surf.get_rect(center = (WIDTH/2, HEIGHT - 10))

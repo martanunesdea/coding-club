@@ -12,7 +12,7 @@ label_a.pack()
 label_b = tk.Label(master=frame_b, text="I'm in Frame B")
 label_b.pack()
 
-frame_a.pack()
 frame_b.pack()
+frame_a.pack()
 
 window.mainloop()

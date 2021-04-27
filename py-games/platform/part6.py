@@ -41,15 +41,17 @@ class Player(pygame.sprite.Sprite):
  
     def update(self):
         hits = pygame.sprite.spritecollide(P1 ,platforms, False)
-        #if P1.vel.y > 0:        
         if hits:
-            self.pos.y = hits[0].rect.top + 1
-            self.vel.y = 0
+            if self.vel.y > 0:
+                if (self.pos.y) < hits[0].rect.bottom:              
+                    self.pos.y = hits[0].rect.top + 1
+                    self.vel.y = 0
+                    self.jumping = False
 
     def jump(self):
         #hits = pygame.sprite.spritecollide(self, platforms, False)
         #if hits:
-        self.vel.y = -15
+        self.vel.y = -11
  
  
  
@@ -65,7 +67,7 @@ class platform(pygame.sprite.Sprite):
         pass 
 
 def platform_generation():
-    while len(platforms) < 10 :
+    while len(platforms) < 10:
         width = random.randrange(50,100)    # declare random width
         p  = platform()                     # create new platform object
         # give new platform random coordinates
@@ -132,7 +134,7 @@ while True:
  
     # infinite scrolling
     if P1.rect.top <= HEIGHT / 3:
-        P1.pos.y += abs(P1.vel.y) # update player
+        P1.pos.y = P1.pos.y + abs(P1.vel.y) # update player
         for plat in platforms:
             plat.rect.y += abs(P1.vel.y) # update platforms
             if plat.rect.top >= HEIGHT:
