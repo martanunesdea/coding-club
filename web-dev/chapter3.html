@@ -1,0 +1,117 @@
+<html>
+  <head>
+    <title>Vue.js Pet Depot</title>
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" type="text/css" href="app.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    crossorigin="anonymous">
+  </head>
+  <body>
+    <div id="app">
+      <header>	
+        <div class="navbar navbar-default">
+          <h1>{{ sitename }}</h1>
+        </div>
+        <div class="nav navbar-nav navbar-right cart">
+          <span
+            class="glyphicon glyphicon-shopping-cart">
+            {{ cartItemCount }} 
+          </span>
+        </div>
+      </header>
+      <main>
+        <div class="nav navbar-nav navbar-right cart">
+            <button type="button"
+                class="btn btn-default btn-lg"
+                v-on:click="showCheckout">
+                <span
+                class="glyphicon glyphicon-shopping-cart">
+                {{ cartItemCount}}</span>
+                Checkout
+            </button>
+      </div>
+        <div class="row product">
+            <div v-if="showProduct">
+                <div class="col">
+                    <figure>
+                        <img v-bind:src="product.image">
+                    </figure>
+                </div>
+                <div class="col col-expand">
+                    <h1 v-text="product.title"></h1>
+                    <p v-html="product.description"></p> 
+                    <p class="price">
+                    {{ product.price | formatPrice }}
+                    </p>
+                    <button class="default"        
+                        v-on:click="addToCart"   
+                        v-if="canAddToCart"      
+                        >Add to cart</button>   
+
+                    <button class="disabled"   
+                        v-else                  
+                        >Add to cart</button>  
+                </div>
+            </div>
+            <div v-else>
+                
+            </div>
+        </div>
+      </main>
+    </div>
+<script type="text/javascript">
+      var webstore = new Vue({
+        el: '#app', 
+        data: {	
+          sitename: 'Vue.js Pet Depot',	
+          product: {	
+            id: 1001,     
+            title: "Cat Food, 25lb bag",
+            description: "A 25 pound bag of <em>irresistible</em>,"+
+                          "organic goodness for your cat.",
+            price: 2000,
+            image: "assets/images/product-fullsize.png",
+            availableInventory: 5,
+          },
+          cart: [],
+          showProduct: true,
+        },
+        filters: {	
+          formatPrice: function(price) {	
+            if (!parseInt(price)) { return ""; }	
+            if (price > 99999) {	
+              var priceString = (price / 100).toFixed(2);	
+              var priceArray = priceString.split("").reverse();	
+              var index = 3;	
+              while (priceArray.length > index + 3) {	
+                priceArray.splice(index+3, 0, ",");	
+                index += 4;	
+              }	
+              return "$" + priceArray.reverse().join("");	
+            } else {
+              return "$" + (price / 100).toFixed(2);	
+            }
+          }
+        },
+        methods: {                                 
+            addToCart: function() {               
+                this.cart.push( this.product.id );     
+            },
+            showCheckout() {
+                console.log(this.showProduct)
+                this.showProduct = this.showProduct ? false : true;
+            }                                   
+        },
+        computed: {
+            cartItemCount: function() {
+                console.log(this.cart.length);
+                return this.cart.length || '';
+            },
+            canAddToCart: function() {
+                return this.product.availableInventory > this.cartItemCount;
+            },        
+        },
+      });
+    </script>
+  </body>
+</html>
