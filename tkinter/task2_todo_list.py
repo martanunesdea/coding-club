@@ -53,14 +53,27 @@ class Application(tk.Tk):
         self.completed_items = self.completed_items + 1
 
     def summary(self):
+        message = self.get_summary_text()
+
+        popup = tk.Tk()
+        popup.wm_title("Summary")
+        label = ttk.Label(popup, text=message)
+        label.grid(row=0, column=0, padx=5, pady=5)
+        exit_btn = ttk.Button(popup, text="Exit", command = popup.destroy)
+        exit_btn.grid(row=1, column=0, padx=5, pady=5)
+        popup.mainloop()
+
+    def get_summary_text(self):
+        message = ""
         if self.completed_items > 0:
-            print("You completed", self.completed_items, "tasks today. Well done!")
+            message = "You completed " + str(self.completed_items) + " tasks today. Well done!\n"
         else: 
-            print("Tomorrow will be a better day :)")
+            message = "Tomorrow will be a better day :)"
         if self.active_items > 0:
-            print("You have", self.active_items, "tasks to complete tomorrow")
+            message = message + "You have " +  str(self.active_items) + " tasks to complete tomorrow"
         else:
-            print("You smashed it! Enter some new items for tomorrow")
+            message = message + "You smashed it! Enter some new items for tomorrow"
+        return message
 
         
 
