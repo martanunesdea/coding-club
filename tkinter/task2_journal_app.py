@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 
 def save_entry(filename):
-    text = text_entry.get("1.0", tk.END)
+    text = text_entry.get(1.0, tk.END)
     save_to_file(text, filename)
 
 def save_to_file(text, filename):
