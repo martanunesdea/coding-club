@@ -1,0 +1,32 @@
+#List of requirements
+
+
+
+A. A place to see what youre buying - User Interface (GUI)
+B. A way to enter banking information. -- secondary feature
+    = a User class
+    Attributes: name, card details, address, email
+    Methods: sign up
+C. The concept of shopping cart that holds all items selected by user
+    = a Shopping Cart class
+    Attributes:
+    - Cart Id
+    - Total Items
+    - Total Price
+    Methods:
+    - Add to cart -- this method will add an item to cart. Implies a relation with Product.
+    - Check Out
+    - Save for Later -- secondary feature
+
+D. The concept of a product that a user can select
+    = a Product class
+    Attributes:
+    - Price (Float)
+    - Name  (String)
+    - UnitsAvailable (Integer)
+    Methods:
+    - check_availability()
+
+E. When a product is selected, it gets added to cart.
+F. User must be able to checkout to buy item.
+

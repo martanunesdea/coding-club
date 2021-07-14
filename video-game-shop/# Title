@@ -1,0 +1,12 @@
+    # Title
+    1. Create an item with properties such as name, details, quantity in stock, availability, price
+    2. An Item can belong to a category
+    3. A shopping cart instance which can have many items with total price.
+    4. An order item created after user checkout. It will have order id, date purchased, items
+    5. Assign item to category
+    6. Print list of items given a category
+    7. Add item stock to inventory
+    8. Create an shopping cart containing items
+    9. Add items to cart (You can’t add items if the quantity is out of stock)
+    10. Print shopping cart items with the price and total
+    11. Checkout and create order, also print order detail
